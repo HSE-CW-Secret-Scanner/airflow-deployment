@@ -1,0 +1,16 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'airflow'
+    static_configs:
+      - targets: ['airflow-webserver:9110']  # For Airflow 2.0+ with built-in metrics
+      - targets: ['statsd-exporter:9102']     # For statsd metrics
+
+  - job_name: 'airflow-statsd'
+    static_configs:
+      - targets: ['statsd-exporter:9102']
